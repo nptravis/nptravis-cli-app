@@ -1,5 +1,8 @@
-require "top_travel_destinations/version"
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
 
-module TopTravelDestinations
-  # Your code goes here...
-end
+
+require_relative "./top_travel_destinations/cli"
+require_relative "./top_travel_destinations/version"
+require_relative "./top_travel_destinations/country"
