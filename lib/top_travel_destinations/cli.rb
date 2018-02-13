@@ -75,6 +75,7 @@ class TopTravelDestinations::CLI
 				puts object.description
 				puts "-------------"
 				puts "for more information visit: #{object.url}"
+				break
 			else
 				puts "Please enter a valid number"
 			end
