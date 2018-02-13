@@ -11,9 +11,14 @@ class TopTravelDestinations::Country
 			object = self.new
 			object.name = doc.css("##{i} h1").text.split(".")[1].strip
 			object.description = doc.css("##{i} p").first.text.strip
+			object.url = doc.css("##{i} a").attribute('href').value
 			@@all << object
 			i+=1
 		end
+		@@all
+	end
+
+	def self.all
 		@@all
 	end
 
