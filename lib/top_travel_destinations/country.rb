@@ -35,10 +35,10 @@ class TopTravelDestinations::Country
 			binding.pry
 			@blurb = doc.search("span.js-intro-narrative").first.text
 		else
-			binding.pry
 			@blurb = doc.search("span.js-intro-narrative p").first.text
 		end
-		# sights = doc.css("div.SightsList-wrap")
+		binding.pry
+		sights = doc.css("div.SightsList-wrap")
 
 	end
 
