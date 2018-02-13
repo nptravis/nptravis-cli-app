@@ -5,6 +5,10 @@ class TopTravelDestinations::CLI
 	# end
 
 	def call
+		menu1
+	end
+
+	def menu1
 		puts "Top 10 Travel Destinations"
 		puts "--------------------------"
 		puts "You can search by:"
@@ -15,79 +19,83 @@ class TopTravelDestinations::CLI
 		4. Top 10 Best Value
 		DOC
 		puts "Please choose a number 1-4:"
-		puts "Or, you can type 'exit' at anytime"
+		puts "or you can type 'exit' anytime"
 
 		input = nil
 		while input != "exit"
 			input = gets.strip
-			input = input.to_i
-			if input > 0 && input < 5
-				menu1(input)
+
+			if input == "exit"
+				goodbye
+				break
+			elsif input.to_i > 0 && input.to_i < 5
+				menu2(input.to_i)
 			else
-				puts "Please enter a valid number"
+				puts "Please enter a valid number or 'exit'"
 			end
 		end
 	end
 
-	def menu1(input)
+	def menu2(input)
+		@menu2 = input
 		case input
 			when 1
 				puts
 				puts "Top 10 Countries"
 				puts "----------------"
 				all = TopTravelDestinations::Country.scrape
-				display(all)
+				menu3(all)
 			when 2
 				puts
 				puts "Top 10 Cities"
 				puts "----------------"
 				all = TopTravelDestinations::City.scrape
-				display(all)
+				menu3(all)
 			when 3
 				puts
 				puts "Top 10 Regions"
 				puts "----------------"
 				all = TopTravelDestinations::Region.scrape
-				display(all)
+				menu3(all)
 			when 4
 				puts
 				puts "Top 10 Best Values"
 				puts "----------------"
 				all = TopTravelDestinations::Value.scrape
-				display(all)
-			else
-				puts "please enter a valid number or type 'exit'"
+				menu3(all)
 			end
 	end
 
-	def menu2(all)
+	def menu3(all)
+		all.each.with_index(1) {|object,i| puts "#{i}. #{object.name}"}
 		puts "Please choose a number 1 - 10"
-		puts "Or, you can type 'exit' at anytime"
+		puts "Or, you can type 'main menu' or 'exit'"
 		input = nil
 		while input != "exit"
 			input = gets.strip
-			input = input.to_i
-			if input > 0 && input < 11
-				object = all[input-1]
+
+			if input == 'back'
+				menu2(@menu2)
+			elsif input == 'main menu'
+				menu1
+			elsif input.to_i > 0 && input.to_i < 11
+				object = all[input.to_i-1]
 				puts
 				puts object.name
 				puts "-------------"
 				puts object.description
 				puts "-------------"
 				puts "for more information visit: #{object.url}"
-				break
+				puts
+				puts"type 'back', 'main menu' or 'exit'"
 			else
 				puts "Please enter a valid number"
 			end
 		end
 	end
 
-
-	def display(all)
-		all.each.with_index(1) {|object,i| puts "#{i}. #{object.name}"}
-		menu2(all)
+	def goodbye
+		puts "Thanks for coming, safe travels!"
 	end
-
-
 
 end

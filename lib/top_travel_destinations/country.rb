@@ -4,6 +4,7 @@ class TopTravelDestinations::Country
 	@@all = []
 
 	def self.scrape
+		@@all = []
 		doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries"))
 		
 		i = 1
