@@ -28,11 +28,17 @@ class TopTravelDestinations::Country
 	end
 
 	def scrape_country_data
-		url = "https://www.lonelyplanet.com/" + self.name.downcase
+		url = "https://www.lonelyplanet.com/" + self.name.downcase.gsub(/\s+/, "-")
 		doc = Nokogiri::HTML(open(url))
-		@blurb = doc.css("span.js-intro-narrative p").text
+		
+		if self.name == "djibouti"
+			binding.pry
+			@blurb = doc.search("span.js-intro-narrative").first.text
+		else
+			binding.pry
+			@blurb = doc.search("span.js-intro-narrative p").first.text
+		end
 		# sights = doc.css("div.SightsList-wrap")
-		# binding.pry
 
 	end
 

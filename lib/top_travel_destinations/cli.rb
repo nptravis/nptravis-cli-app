@@ -12,12 +12,14 @@ class TopTravelDestinations::CLI
 
 		input = nil
 		while input != "exit"
-			puts "What country would you like to visit? Please enter the number, or enter 'exit' to leave program"
+			puts "What country would you like to visit? Please enter the number:"
 			input = gets.strip
 			if valid?(input)
 				input = input.to_i - 1
 				display_country(input)
 				break
+			else
+				puts "please enter a valid number or type 'exit'"
 			end
 		end
 	end
@@ -31,12 +33,14 @@ class TopTravelDestinations::CLI
 	def display_country(index)
 		country = TopTravelDestinations::Country.all[index]
 		country.scrape_country_data
+		puts
 		puts country.name
 		puts "--------------"
 		puts country.blurb
 		puts "--------------"
 		puts "Top 10 sights"
 		puts country.list_sights
+		puts
 	end
 
 	def valid?(input)
