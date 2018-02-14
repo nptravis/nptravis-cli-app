@@ -4,7 +4,6 @@ class TopTravelDestinations::Country
 	@@all = []
 
 	def self.scrape
-		@@all = []
 		doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries"))
 		
 		i = 1
@@ -16,10 +15,6 @@ class TopTravelDestinations::Country
 			@@all << object
 			i+=1
 		end
-		@@all
-	end
-
-	def self.all
 		@@all
 	end
 
